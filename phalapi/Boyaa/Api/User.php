@@ -28,26 +28,26 @@ class Api_User extends PhalApi_Api {
                 ),
             ),
             'setbanner'=>array(
-                'img_src'=>array(
-                    'name'=>'img_src',
-                    "type"=>'string',
-                ),
-                "link"=>array(
-                    'name'=>'link',
-                    "type"=>"string",
-                    "min"=>0,
-                    "max"=>2555,
-                ),
-                "banner_title"=>array(
-                    "name"=>"banner_title",
-                    "type"=>"string",
-                    "min"=>0,
-                    "max"=>2555
-                ),
-                "sort"=>array(
-                    "name"=>"sort",
-                    "type"=>"int",
-                )
+//                'img_src'=>array(
+//                    'name'=>'img_src',
+//                    "type"=>'string',
+//                ),
+//                "link"=>array(
+//                    'name'=>'link',
+//                    "type"=>"string",
+//                    "min"=>0,
+//                    "max"=>2555,
+//                ),
+//                "banner_title"=>array(
+//                    "name"=>"banner_title",
+//                    "type"=>"string",
+//                    "min"=>0,
+//                    "max"=>2555
+//                ),
+//                "sort"=>array(
+//                    "name"=>"sort",
+//                    "type"=>"int",
+//                )
             ),
             "deletebanner"=>array(
                 "sort"=>array(
@@ -64,10 +64,11 @@ class Api_User extends PhalApi_Api {
     public function getbanner(){
         $Domain_User = new  Domain_User();
         return $Domain_User->getbanner($this);
+
     }
     public function setbanner(){
         $Domain_User = new  Domain_User();
-        return $Domain_User->setbanner($this);
+        return $Domain_User->setbanner($_POST);
     }
     public function deletebanner(){
         $Domain_User = new  Domain_User();

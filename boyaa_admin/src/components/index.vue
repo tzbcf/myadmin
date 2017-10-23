@@ -31,7 +31,7 @@
                   <i>推荐位管理</i>
                   <span class="glyphicon glyphicon-chevron-down"></span>
                 </h3>
-                <div class="subtitle"  :class="{show:ishow1==true}">
+                <div class="subtitle" v-show="index==1">
                   <ul>
                     <li>
                       <router-link to="/" class="sub_a">首页</router-link>
@@ -48,7 +48,7 @@
                   <i>投资者关系管理</i>
                   <span class="glyphicon glyphicon-chevron-down"></span>
                 </h3>
-                <div class="subtitle" :class="{show:ishow2==true}">
+                <div class="subtitle" v-show="index==2">
                   <ul>
                     <li>
                       <router-link to="/" class="sub_a">公告与通函</router-link>
@@ -68,7 +68,7 @@
                   <i>图文管理</i>
                   <span class="glyphicon glyphicon-chevron-down"></span>
                 </h3>
-                <div  class="subtitle" :class="{show:ishow3==true}">
+                <div  class="subtitle" v-show="index==3">
                   <ul>
                     <li>
                       <router-link to="/" class="sub_a">新闻稿</router-link>
@@ -85,7 +85,7 @@
                   <i>业务内容管理</i>
                   <span class="glyphicon glyphicon-chevron-down"></span>
                 </h3>
-                <div  class="subtitle" :class="{show:ishow4==true}">
+                <div  class="subtitle" v-show="index==4">
                   <ul>
                     <li>
                       <router-link to="/" class="sub_a">博雅游戏</router-link>
@@ -102,7 +102,7 @@
                   <i>数据统计</i>
                   <span class="glyphicon glyphicon-chevron-down"></span>
                 </h3>
-                <div  class="subtitle" :class="{show:ishow5==true}">
+                <div  class="subtitle" v-show="index==5">
                   <ul>
                     <li>
                       <router-link to="/" class="sub_a">点击统计</router-link>
@@ -119,7 +119,7 @@
                   <i>系统设置</i>
                   <span class="glyphicon glyphicon-chevron-down"></span>
                 </h3>
-                <div  class="subtitle" :class="{show:ishow6==true}">
+                <div  class="subtitle" v-show="index==6">
                   <ul>
                     <li>
                       <router-link to="/" class="sub_a">管理页设置</router-link>
@@ -154,13 +154,7 @@
 				time:'',
         username:'',
         infoShow:false,
-        index:0,
-        ishow1:false,
-        ishow2:false,
-        ishow3:false,
-        ishow4:false,
-        ishow5:false,
-        ishow6:false,
+        index:Number,
         screenWidth: document.body.clientWidth,
         popup:false,
         pops:'',
@@ -179,33 +173,10 @@
 //      	this.$router.push({path:''})
       },
       sub(i){
-      	switch (i){
-          case i=1:
-          	this.ishow2=false,this.ishow3=false,this.ishow4=false,this.ishow5=false,this.ishow6=false;
-          	this.ishow1=!this.ishow1;
-          	break;
-          case i=2:
-            this.ishow1=false,this.ishow3=false,this.ishow4=false,this.ishow5=false,this.ishow6=false;
-            this.ishow2=!this.ishow2;
-            break;
-          case i=3:
-            this.ishow1=false,this.ishow2=false,this.ishow4=false,this.ishow5=false,this.ishow6=false;
-            this.ishow3=!this.ishow3;
-            break;
-          case i=4:
-            this.ishow1=false,this.ishow2=false,this.ishow3=false,this.ishow5=false,this.ishow6=false;
-            this.ishow4=!this.ishow4;
-            break;
-          case i=5:
-            this.ishow1=false,this.ishow2=false,this.ishow3=false,this.ishow4=false,this.ishow6=false;
-            this.ishow5=!this.ishow5;
-            break;
-          case i=6:
-            this.ishow1=false,this.ishow2=false,this.ishow3=false,this.ishow4=false,this.ishow5=false;
-            this.ishow6=!this.ishow6;
-            break;
-          default:
-            break
+      	if(this.index!=i){
+      		this.index=i;
+        }else {
+      		this.index=Number;
         }
       },
       listen(popup){
@@ -214,7 +185,12 @@
       }
     },
     mounted(){
-    	let self=this;
+      let self=this;
+      setInterval(()=>{
+        self.state.b+=1000;
+        self.stateDate.a+=2222;
+      },3000);
+
       let data=new Date();
       let y,mo,d,h,mi;
       y=data.getFullYear();
@@ -327,10 +303,7 @@ a:hover
               vertical-align middle
               line-height 56px
               color #bfcbd9
-          .show
-            display block
           .subtitle
-            display none
             ul
               width 100%
               background #1f2d3d

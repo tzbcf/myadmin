@@ -12,12 +12,12 @@ class Model_User extends PhalApi_Model_NotORM {
     public function getbanner() {
         return DI()->notorm->banner->order("sort asc")->fetchAll();
     }
-    public function setbanner($data) {
+    public function setbanner() {
         return DI()->notorm->banner->insert(array(
-            "img_src" => $data->img_src,
-            "banner_title" => $data->banner_title,
-            "link"    => $data->link,
-            "sort"=>$data->sort
+            "img_src" => $_POST['img_src'],
+            "banner_title" => $_POST['banner_title'],
+            "link"    => $_POST['link'],
+            "sort"=>$_POST['sort'],
         ));
     }
     public function deletebanner($data){

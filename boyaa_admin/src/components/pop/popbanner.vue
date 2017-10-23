@@ -122,14 +122,20 @@
       },
       submit(){
       	let self=this;
+      	let data=new URLSearchParams();
       	if(self.popup[2]==''){
           Share.$emit("banner_data",self.banner_data);
+          data.append("link",self.banner_data.link);
+          data.append("img_src",self.banner_data.img_src);
+          data.append("banner_title",self.banner_data.banner_title);
+          data.append("sort",self.banner_data.sort);
+          console.log(self.banner_data.sort,1);
           this.$http({
-            method:"get",
+            method:"post",
             url:"http://www.boyaa_api.com/Public/?service=User.setbanner",
-            params:self.banner_data,
+            data:data,
           }).then((response)=>{
-//      		console.log(response.data.data)
+      		console.log(response.data.data)
           })
         }else {
           Share.$emit("banner_data",self.banner_data);

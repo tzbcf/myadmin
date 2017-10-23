@@ -59,6 +59,7 @@
           </div>
           <a href="javascript:;" class="added" @click="added(0)">+新增图文</a>
         </div>
+        <h1>{{bb}}</h1>
       </div>
     </div>
 </template>
@@ -73,6 +74,7 @@
         checkboxModel: [],//根据这个数组与v-model实现全选与单选
         checked: false,//实现全选与单选按钮选中的状态
         popup:[false,2,''],
+        bb:''
       }
     },
     methods: {
@@ -161,6 +163,11 @@
     },
     mounted(){
     	let self=this;
+    	setInterval(()=>{
+        console.log(self.state.b);
+        console.log(self.stateDate.a)
+      },5000);
+      this.bb=this.state.b;
       this.$http({
         method:'get',
         url:'http://www.boyaa_api.com/Public/?service=User.getbanner'}).then((response)=> {
