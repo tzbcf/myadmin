@@ -1,5 +1,6 @@
 'use strict'
 module.exports = {
-  NODE_ENV: '"production"'
+  NODE_ENV: '"production"',
+  API_ROOT:'"http://www.boyaa_api.com/Public/index.php"'
 }
-//http://www_new_admin.boyaa.com/web/index.php?r=recommend%2Fvideo&tid=0#
+

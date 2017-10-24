@@ -130,12 +130,12 @@
             </div>
           </div>
           <div class="right_main col-lg-10  pull-right" :style="{width:screenWidth-280+'px'}">
-            <router-view v-on:pop="listen"></router-view>
+            <router-view></router-view>
           </div>
         </div>
       </div>
       <div class="popup" v-show="popup==true">
-        <pop :is="pops" v-on:pop="listen"></pop>
+        <pop :is="allpops"></pop>
       </div>
     </div>
 </template>
@@ -156,9 +156,14 @@
         infoShow:false,
         index:Number,
         screenWidth: document.body.clientWidth,
-        popup:false,
-        pops:'',
-        pop_components:[popbanner,popvedo]
+      }
+    },
+    computed:{
+      popup(){
+        return this.$store.getters.openpopup;
+      },
+      allpops(){
+        return this.$store.getters.openpops;
       }
     },
     methods:{
@@ -185,12 +190,8 @@
       }
     },
     mounted(){
+    	console.log(this.allpops)
       let self=this;
-      setInterval(()=>{
-        self.state.b+=1000;
-        self.stateDate.a+=2222;
-      },3000);
-
       let data=new Date();
       let y,mo,d,h,mi;
       y=data.getFullYear();
@@ -209,7 +210,6 @@
           self.screenWidth = window.screenWidth
         })()
       }
-
     },
 	}
 </script>

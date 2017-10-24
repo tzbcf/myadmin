@@ -66,7 +66,6 @@
 </template>
 
 <script>
-  import Share from '../../state/state'
 	export default {
 		name: 'popbanner',
     data(){
@@ -81,9 +80,7 @@
 
     methods:{
       close(){
-        this.popup[0]=false;
-        this.popup[1]='';
-        this.$emit('pop',this.popup);
+        this.$store.commit("CLOSE")
       },
       file(){
         let files = this.$refs.file.files[0];
