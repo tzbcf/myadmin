@@ -34,10 +34,10 @@
                       <!--<span class="glyphicon glyphicon-ok">-->
                       <!--</span>-->
                     </label>
-                    <span>{{index+1}}</span>
+                    <span>{{banner.sort}}</span>
                   </td>
                   <td>
-                    <img :src="banner.img_src" alt="" width="170" height="auto">
+                    <img :src="banner.img_src" alt="" width="auto" height="50">
                   </td>
                   <td>{{banner.banner_title}}</td>
                   <td>
@@ -59,7 +59,7 @@
           </div>
           <a href="javascript:;" class="added" @click="added">+新增图文</a>
         </div>
-        <h1>{{popup}}</h1>
+        <h1>{{one_data}}</h1>
       </div>
     </div>
 </template>
@@ -108,57 +108,87 @@
       	if(this.checkboxModel.length!=this.data_banner.length){this.checked=false}
       	else {this.checked=true}
       },
-      ALL_REMOVE(){
+      ALL_REMOVE(){//全部删除
       	let self=this;
-        if(self.checkboxModel.length<1){
+        if(self.checkboxModel.length<1){//没有选择时弹窗提示选择
           alert("请选择")
         }else {
-          self.$store.commit("ALL_REMOVE", self.checkboxModel)
+        	let sort=[];//根据sort排序删除
+        	for(let i of self.checkboxModel){
+        		sort.push(self.data_banner[i].sort)
+          }
+          let data=new URLSearchParams();
+          data.append("sort",sort);
+        	self.$store.dispatch("allremove",data).then((data)=>{
+        		if(data.ret==200){//如果成功，前端也数据删除
+              self.$store.commit("ALL_REMOVE", self.checkboxModel);
+              self.checkboxModel=[];
+            }
+          });
         }
       },
       ONE_REMOVE(i){
       	let self=this;
         let indexof=self.checkboxModel.indexOf(i);
-        console.log(self.checkboxModel);
         if(indexof==-1) {
         	alert("请选择")
         }else {
-          self.$store.commit("ONE_REMOVE",indexof)
+          let data=new URLSearchParams();
+          let sort=self.data_banner[i].sort;
+          data.append("sort",sort);
+          self.$store.dispatch("allremove",data).then((data)=>{
+            if(data.ret==200){//如果成功，前端也数据删除
+              self.checkboxModel.splice(indexof,1);
+              self.$store.commit("ONE_REMOVE",i);
+            }
+          });
+
         }
       },
-      added(){
+      added(){//增加一条数据
       	let self=this;
-        if(self.popup==false) {
-          let i = 'popbanner';
-          self.$store.commit("SHOW_BJ");
-          self.$store.commit("SHOW_TC", i);
-        }
+        let i = 'popbanner';
+        self.$store.commit("SHOW_BJ");
+        self.$store.commit("SHOW_TC", i);
       },
-      amend(i){
-        this.popup[0]=true;
-        this.popup[1]=0;
-        this.popup[2]=i;
-        this.$emit('pop',this.popup);
-        let i_data_banner=JSON.stringify(this.data_banner[i]);
-        window.sessionStorage.setItem("i_data_banner",i_data_banner)
-        window.sessionStorage.setItem("amend","true")
+      amend(i){//修改一条数据
+        let self=this;
+        let m = 'popbanner';
+        self.$store.commit("SHOW_BJ");
+        self.$store.commit("SHOW_TC",m);
+        self.$store.commit("SHOW_CREATE_BJ",i);
       },
       asc(i){
       	let self=this;
       	if(i!=0){
-      		let i_banner=self.data_banner[i];
-          self.data_banner.splice(i,1);
-          self.data_banner.splice(i-1,0,i_banner)
-          console.log(self.data_banner)
+      		let m=[];
+      	  m[0]=parseInt(self.data_banner[i].sort);
+          m[1]=parseInt(self.data_banner[i-1].sort);
+          let data=new URLSearchParams;
+          let o=m.toString();
+          data.append("asc",o);
+          self.$store.dispatch("ASC_banner",data).then((data)=>{
+          	if(data.ret==200){
+          		self.$store.commit("ASC_DATA",i)
+            }
+          })
         }
       },
       desc(i){
       	let self=this;
       	let length=self.data_banner.length;
-      	if(self!=length-1){
-          let i_banner=self.data_banner[i];
-          self.data_banner.splice(i,1);
-          self.data_banner.splice(i+1,0,i_banner)
+      	if(self<length-1){
+          let m=[];
+          m[0]=parseInt(self.data_banner[i].sort);
+          m[1]=parseInt(self.data_banner[i+1].sort);
+          let data=new URLSearchParams;
+          let o=m.toString();
+          data.append("dsc",o);
+          self.$store.dispatch("ASC_banner",data).then((data)=>{
+            if(data.ret==200){
+              self.$store.commit("ASC_DATA",i)
+            }
+          })
         }
       }
     },
@@ -174,7 +204,10 @@
       },
       popup(){
         return this.$store.getters.openpopup
-      }
+      },
+      one_data(){
+        return this.$store.getters.openOneData;
+      },
     },
     mounted(){
 //    	let self=this;

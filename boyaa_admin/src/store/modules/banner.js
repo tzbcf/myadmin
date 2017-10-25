@@ -7,6 +7,7 @@ const state={
   banner_data:[],
   popup:false,
   pops:'',
+  one_data:[],
 }
 
 
@@ -19,7 +20,63 @@ const actions={
         console.log(error)
       })
     })
-  }
+  },
+  setbanner({ commit, state },datas){
+    return new Promise((resolve,reject)=>{
+      axios({
+        method:'post',
+        url:API_ROOT,
+        params:{service:'User.setbanner'},
+        data:datas
+      }).then((response)=>{
+        resolve(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    })
+  },
+  allremove({ commit, state },datas){
+    return new Promise((resolve,reject)=>{
+      axios({
+        method:'post',
+        url:API_ROOT,
+        params:{service:'User.AllRemoveBanner'},
+        data:datas
+      }).then((response)=>{
+        resolve(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    })
+  },
+  One_setbanner({ commit, state },datas){
+    return new Promise((resolve,reject)=>{
+      axios({
+        method:'post',
+        url:API_ROOT,
+        params:{service:'User.Oneamend'},
+        data:datas
+      }).then((response)=>{
+        resolve(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    })
+  },
+  ASC_banner({ commit, state },datas){
+    return new Promise((resolve,reject)=>{
+      axios({
+        method:'post',
+        url:API_ROOT,
+        params:{service:'User.ascdata'},
+        data:datas
+      }).then((response)=>{
+        resolve(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    })
+  },
 }
 
 const mutations={
@@ -40,8 +97,29 @@ const mutations={
   SHOW_TC:(state,i)=>{
     state.pops=i;
   },
+  SHOW_CREATE_BJ:(state,i)=>{
+    state.one_data=state.banner_data[i]
+  },
+  DELETE_CREATE_BJ:(state)=>{
+    state.one_data=[]
+  },
   CLOSE:(state)=>{
     state.popup=false;
+  },
+  PUSH_BANNER_DATA:(state,i)=>{
+    state.banner_data.push(i)
+  },
+  AMEND_DATA:(state,o)=>{
+    for(let i=0;i<state.banner_data.length;i++){
+      if(o.sort==state.banner_data[i].sort){
+        state.banner_data.splice(i,1,o)
+      }
+    }
+  },
+  ASC_DATA:(state,i)=>{
+    let o=state.banner_data[i];
+    state.banner_data.splice(i,1);
+    state.banner_data.splice(i-1,0,o);
   }
 }
 const getters={
@@ -53,6 +131,9 @@ const getters={
   },
   openpopup:state=>{
     return state.popup
+  },
+  openOneData:state=>{
+    return state.one_data
   }
 }
 export default {

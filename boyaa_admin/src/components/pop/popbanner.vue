@@ -12,11 +12,11 @@
         <form>
           <div>
             <p class="img_show" :style="{width:img_width+'px'}">
-              <img :src="img_src" alt="" height="60" width="auto">
+              <img :src="one_data.img_src" alt="" height="60" width="auto">
             </p>
             <p>
               <label>
-                <input type="file" value="上传图片" @change="file" ref="file">
+                <input type="file" value="上传图片" @change="file()" ref="file">
               </label>
               <a href="javascript:;">删除</a>
             </p>
@@ -28,7 +28,7 @@
                     <span class="w90">
                       外部链接
                     </span>
-                <input type="text" ref="sans_link" @blur="val(1)" :value="i_data_banner.link">
+                <input type="text" v-model="wb_link" >
               </label>
             </p>
             <div class="pl25">
@@ -52,7 +52,7 @@
             <p class="pl25">
               <label>
                 <span class="w90">说明:</span>
-                <input type="text" @blur="val(2)" ref="state" :value="i_data_banner.banner_title">
+                <input type="text"  v-model="title" >
               </label>
             </p>
             <p class="b_btn text-center">
@@ -70,19 +70,29 @@
 		name: 'popbanner',
     data(){
 			return{
-        popup:[false,'',''],
         img_src:'',
         img_width:120,
         banner_data:{},
-        i_data_banner:{}
+        wb_link:'',
+        title:'',
+        Oneamend:false,
       }
     },
-
-    methods:{
-      close(){
-        this.$store.commit("CLOSE")
+    computed: {
+      one_data(){
+        return this.$store.getters.openOneData;
       },
-      file(){
+    },
+    methods:{
+      close(){//关闭弹窗
+        this.wb_link='';
+        this.title='';
+        let i='';
+        this.$store.commit("CLOSE");
+        this.$store.commit("DELETE_CREATE_BJ");
+        this.$store.commit("SHOW_TC",i);
+      },
+      file(){//获取图片base64码
         let files = this.$refs.file.files[0];
         let self=this;
         if(files){
@@ -103,62 +113,61 @@
           };
           reader.readAsDataURL(files);
         }else{
-          self.img_src=''
+        	if(self.one_data==''){
+            self.img_src='';
+          }else {
+            self.img_src=self.one_data.img_src;
+          }
+          self.banner_data.img_src=self.img_src;
+        	self.Oneamend=true;//代表照片不是base64码
         }
       },
-      val(i){
-        let self=this;
-      	if(i==1){
-          let a=self.$refs.sans_link.value;
-          self.banner_data.link=a;
-        }
-        if(i==2){
-          let a=self.$refs.state.value;
-          self.banner_data.banner_title=a;
-        }
-      },
-      submit(){
+      submit(){//提交
       	let self=this;
-      	let data=new URLSearchParams();
-      	if(self.popup[2]==''){
-          Share.$emit("banner_data",self.banner_data);
-          data.append("link",self.banner_data.link);
+        self.banner_data.link=self.wb_link;//获取input数据，存入data里面上传
+        self.banner_data.banner_title=self.title;
+        let data=new URLSearchParams();//上传能发送的格式，直接json对象不能发送
+        data.append("link",self.wb_link);//数据存入这个格式中
+        data.append("banner_title",self.banner_data.banner_title);
+      	if(self.one_data==''){
           data.append("img_src",self.banner_data.img_src);
-          data.append("banner_title",self.banner_data.banner_title);
-          data.append("sort",self.banner_data.sort);
-          console.log(self.banner_data.sort,1);
-          this.$http({
-            method:"post",
-            url:"http://www.boyaa_api.com/Public/?service=User.setbanner",
-            data:data,
-          }).then((response)=>{
-      		console.log(response.data.data)
-          })
-        }else {
-          Share.$emit("banner_data",self.banner_data);
-          this.$http({
-            method:"get",
-            url:"",
-            params:self.banner_data,
-          }).then((response)=>{
-//      		console.log(response.data.data)
+          self.$store.dispatch("setbanner",data).then((data)=>{
+            if(data.ret==200){//如果成功，返回200，关闭弹窗
+              self.banner_data.sort=data.data;
+              self.$store.commit("PUSH_BANNER_DATA",self.banner_data);
+              setTimeout(()=>{
+                self.wb_link='';
+                self.title="";
+                self.close()
+              },100)
+            }
+          });
+        }else{
+      		let amend=self.Oneamend.toString();
+      		if(self.Oneamend==false){
+      			self.banner_data.img_src=self.one_data.img_src;
+          }
+          self.banner_data.sort=self.one_data.sort;
+      		data.append("create",amend);
+      		data.append("sort",self.one_data.sort);
+          data.append("img_src",self.banner_data.img_src);
+          self.$store.dispatch("One_setbanner",data).then((data)=>{
+      			if(data.ret==200){
+              self.$store.commit("AMEND_DATA",self.banner_data);
+              setTimeout(()=>{
+                self.wb_link='';
+                self.title="";
+                self.close()
+              },100)
+            }
           })
         }
-        self.close()
       }
     },
     mounted(){
     	let self=this;
-    	let amend=window.sessionStorage.getItem("amend");
-    	console.log(amend,typeof (amend),1);
-    	if(amend=='true'){
-        let i_data_banner=window.sessionStorage.getItem("i_data_banner");
-        self.i_data_banner=JSON.parse(i_data_banner);
-        self.img_src=self.i_data_banner.img_src;
-      }else {
-        self.img_src='';
-        self.i_data_banner={};
-      }
+    	self.wb_link=self.one_data.link;
+    	self.title=self.one_data.banner_title;
     }
 	}
 </script>

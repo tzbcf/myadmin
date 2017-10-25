@@ -27,34 +27,9 @@ class Api_User extends PhalApi_Api {
                     'desc'    => '用户的密码'
                 ),
             ),
-            'setbanner'=>array(
-//                'img_src'=>array(
-//                    'name'=>'img_src',
-//                    "type"=>'string',
-//                ),
-//                "link"=>array(
-//                    'name'=>'link',
-//                    "type"=>"string",
-//                    "min"=>0,
-//                    "max"=>2555,
-//                ),
-//                "banner_title"=>array(
-//                    "name"=>"banner_title",
-//                    "type"=>"string",
-//                    "min"=>0,
-//                    "max"=>2555
-//                ),
-//                "sort"=>array(
-//                    "name"=>"sort",
-//                    "type"=>"int",
-//                )
-            ),
-            "deletebanner"=>array(
-                "sort"=>array(
-                    "name"=>"sort",
-                    "type"=>"int"
-                )
-            )
+            'getbanner'=>array(),
+            'setbanner'=>array(),
+            "AllRemoveBanner"=>array()
         );
     }
     public function userlogin() {
@@ -70,8 +45,16 @@ class Api_User extends PhalApi_Api {
         $Domain_User = new  Domain_User();
         return $Domain_User->setbanner($_POST);
     }
-    public function deletebanner(){
+    public function AllRemoveBanner(){
         $Domain_User = new  Domain_User();
-        return $Domain_User->deletebanner($this);
+        return $Domain_User->AllRemoveBanner($_POST);
+    }
+    public function Oneamend(){
+        $Domain_User = new  Domain_User();
+        return $Domain_User->Oneamend($_POST);
+    }
+    public function ascdata(){
+        $Domain_User = new  Domain_User();
+        return $Domain_User->Ascdata($_POST);
     }
 }

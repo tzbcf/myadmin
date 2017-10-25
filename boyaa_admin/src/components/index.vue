@@ -190,7 +190,6 @@
       }
     },
     mounted(){
-    	console.log(this.allpops)
       let self=this;
       let data=new Date();
       let y,mo,d,h,mi;
