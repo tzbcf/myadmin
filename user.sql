@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version: 5.5.53)
-# Date: 2017-10-19 18:29:48
+# Date: 2017-10-26 17:47:32
 # Generator: MySQL-Front 5.3  (Build 4.234)
 
 /*!40101 SET NAMES utf8 */;
@@ -16,14 +16,14 @@ CREATE TABLE `tbl_banner` (
   `banner_title` varchar(255) DEFAULT NULL,
   `sort` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "tbl_banner"
 #
 
 /*!40000 ALTER TABLE `tbl_banner` DISABLE KEYS */;
-INSERT INTO `tbl_banner` VALUES (1,'http://www.boyaa_api.com/Boyaa/Common/banner024.png','https://www.baidu.com','五四青年运动',1),(36,'http://www.boyaa_api.com/Boyaa/Common/banner024.png','https://www.baidu.com','天才少年',3);
+INSERT INTO `tbl_banner` VALUES (1,'http://www.boyaa_api.com/Boyaa/Common/banner024.png','https://www.boyaa.com','五四青年运动中啊啊',1),(36,'http://www.boyaa_api.com/Boyaa/Common/banner024.png','https://www.baidu.com','天才少年',3),(64,'http://www.boyaa_api.com/Boyaa/Common/img/1508904114.jpeg','1111','111111',2),(65,'http://www.boyaa_api.com/Boyaa/Common/img/1508912649.jpeg','https://www.baidu.com','非常少年',4),(70,'http://www.boyaa_api.com/Boyaa/Common/img/1508913957.jpeg','1231312','321321231231',5);
 /*!40000 ALTER TABLE `tbl_banner` ENABLE KEYS */;
 
 #
@@ -37,14 +37,18 @@ CREATE TABLE `tbl_user` (
   `password` varchar(255) DEFAULT NULL,
   `time` datetime DEFAULT NULL,
   `coding` varchar(4) DEFAULT NULL,
-  `uid` int(11) DEFAULT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `phone` bigint(16) DEFAULT NULL,
+  `role1` int(11) DEFAULT NULL,
+  `role2` int(11) DEFAULT NULL,
+  `role3` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户';
 
 #
 # Data for table "tbl_user"
 #
 
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'abcd123','abcd12345','2017-10-16 12:19:35','agdf',2),(2,'adcd12345','adcd123456','2017-10-16 12:19:35','oude',1),(3,'adcd1234566','andd123456','2017-10-16 12:19:35','cqwe',3);
+INSERT INTO `tbl_user` VALUES (1,'abcd123','abcd12345','2017-10-16 12:19:35','agdf','陈一',13011110000,2,6,NULL),(2,'adcd12345','adcd123456','2017-10-16 12:19:35','oude','陈二',13100001111,2,1,NULL),(3,'adcd1234566','andd123456','2017-10-16 12:19:35','cqwe','陈三',15000001111,3,1,1),(5,'abc12345','absc1213114','2017-10-16 12:19:35','escd','陈四',13100022222,3,6,1),(6,'admin','admin','2017-10-16 12:19:35','abcd','陈老板',13300000000,1,NULL,NULL);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;

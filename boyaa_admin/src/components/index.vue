@@ -25,7 +25,7 @@
         <div class="row">
           <div class="left_nav col-lg-2 pull-left">
             <div class="row">
-              <div class="col-lg-12" v-show="user.role2==1 || user.role1==1">
+              <div class="col-lg-12" v-if="user.role2==1 || user.role1==1">
                 <h3  @click="sub(1)" onselectstart="return false" >
                   <span class="glyphicon glyphicon-home"></span>
                   <i>推荐位管理</i>
@@ -42,7 +42,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12"  v-show="user.role2==2 || user.role1==1">
+              <div class="col-lg-12"  v-if="user.role2==2 || user.role1==1">
                 <h3 @click="sub(2)" onselectstart="return false">
                   <span class="glyphicon glyphicon-stats"></span>
                   <i>投资者关系管理</i>
@@ -62,7 +62,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12" v-show="user.role2==3 || user.role1==1">
+              <div class="col-lg-12" v-if="user.role2==3 || user.role1==1">
                 <h3  @click="sub(3)" onselectstart="return false">
                   <span class="glyphicon glyphicon-picture"></span>
                   <i>图文管理</i>
@@ -79,7 +79,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12" v-show="user.role2==4 || user.role1==1">
+              <div class="col-lg-12" v-if="user.role2==4 || user.role1==1">
                 <h3  @click="sub(4)" onselectstart="return false">
                   <span class="glyphicon glyphicon-list"></span>
                   <i>业务内容管理</i>
@@ -96,7 +96,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12" v-show="user.role2==5 || user.role1==1">
+              <div class="col-lg-12" v-if="user.role2==5 || user.role1==1">
                 <h3  @click="sub(5)" onselectstart="return false">
                   <span class="glyphicon glyphicon-pencil"></span>
                   <i>数据统计</i>
@@ -113,7 +113,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12" v-show="user.role2==6 || user.role1==1">
+              <div class="col-lg-12" v-if="user.role2==6 || user.role1==1">
                 <h3  @click="sub(6)" onselectstart="return false">
                   <span class="glyphicon glyphicon-cog"></span>
                   <i>系统设置</i>
@@ -137,7 +137,6 @@
       <div class="popup" v-show="popup==true">
         <pop :is="allpops"></pop>
       </div>
-      <div>{{user}}</div>
     </div>
 </template>
 
@@ -163,7 +162,7 @@
     },
     created(){
     	let self=this;
-    	let obj={username:'admin',password:'admin'};
+    	let obj={username:'abc12345',password:'absc1213114'};
     	self.$store.dispatch("login",obj);
     },
     computed:{
