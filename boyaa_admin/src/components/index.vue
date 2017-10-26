@@ -25,7 +25,7 @@
         <div class="row">
           <div class="left_nav col-lg-2 pull-left">
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-12" v-show="user.role2==1 || user.role1==1">
                 <h3  @click="sub(1)" onselectstart="return false" >
                   <span class="glyphicon glyphicon-home"></span>
                   <i>推荐位管理</i>
@@ -33,16 +33,16 @@
                 </h3>
                 <div class="subtitle" v-show="index==1">
                   <ul>
-                    <li>
-                      <router-link to="/" class="sub_a">首页</router-link>
+                    <li v-show="user.role3==1 || user.role1==1">
+                      <router-link to="/" class="sub_a" >首页</router-link>
                     </li>
-                    <li>
-                      <router-link to="/game" class="sub_a">游戏中心</router-link>
+                    <li v-show="user.role3==2 || user.role1==1">
+                      <router-link to="/game" class="sub_a" >游戏中心</router-link>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12">
+              <div class="col-lg-12"  v-show="user.role2==2 || user.role1==1">
                 <h3 @click="sub(2)" onselectstart="return false">
                   <span class="glyphicon glyphicon-stats"></span>
                   <i>投资者关系管理</i>
@@ -50,19 +50,19 @@
                 </h3>
                 <div class="subtitle" v-show="index==2">
                   <ul>
-                    <li>
+                    <li   v-show="user.role3==1 || user.role1==1">
                       <router-link to="/" class="sub_a">公告与通函</router-link>
                     </li>
-                    <li>
-                      <router-link to="/game" class="sub_a">财务报告</router-link>
+                    <li  v-show="user.role3==2 || user.role1==1">
+                      <router-link to="/game" class="sub_a" >财务报告</router-link>
                     </li>
-                    <li>
-                      <router-link to="/game" class="sub_a">演示材料</router-link>
+                    <li v-show="user.role3==3 || user.role1==1">
+                      <router-link to="/game" class="sub_a"  >演示材料</router-link>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12">
+              <div class="col-lg-12" v-show="user.role2==3 || user.role1==1">
                 <h3  @click="sub(3)" onselectstart="return false">
                   <span class="glyphicon glyphicon-picture"></span>
                   <i>图文管理</i>
@@ -70,16 +70,16 @@
                 </h3>
                 <div  class="subtitle" v-show="index==3">
                   <ul>
-                    <li>
+                    <li v-show="user.role3==1 || user.role1==1">
                       <router-link to="/" class="sub_a">新闻稿</router-link>
                     </li>
-                    <li>
+                    <li v-show="user.role3==1 || user.role1==1">
                       <router-link to="/game" class="sub_a">关于我们</router-link>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12">
+              <div class="col-lg-12" v-show="user.role2==4 || user.role1==1">
                 <h3  @click="sub(4)" onselectstart="return false">
                   <span class="glyphicon glyphicon-list"></span>
                   <i>业务内容管理</i>
@@ -87,16 +87,16 @@
                 </h3>
                 <div  class="subtitle" v-show="index==4">
                   <ul>
-                    <li>
+                    <li v-show="user.role3==1 || user.role1==1">
                       <router-link to="/" class="sub_a">博雅游戏</router-link>
                     </li>
-                    <li>
+                    <li v-show="user.role3==2 || user.role1==1">
                       <router-link to="/game" class="sub_a">博雅赛事</router-link>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12">
+              <div class="col-lg-12" v-show="user.role2==5 || user.role1==1">
                 <h3  @click="sub(5)" onselectstart="return false">
                   <span class="glyphicon glyphicon-pencil"></span>
                   <i>数据统计</i>
@@ -104,16 +104,16 @@
                 </h3>
                 <div  class="subtitle" v-show="index==5">
                   <ul>
-                    <li>
+                    <li v-show="user.role3==1 || user.role1==1">
                       <router-link to="/" class="sub_a">点击统计</router-link>
                     </li>
-                    <li>
+                    <li v-show="user.role3==2 || user.role1==1">
                       <router-link to="/game" class="sub_a">访问统计</router-link>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12">
+              <div class="col-lg-12" v-show="user.role2==6 || user.role1==1">
                 <h3  @click="sub(6)" onselectstart="return false">
                   <span class="glyphicon glyphicon-cog"></span>
                   <i>系统设置</i>
@@ -121,7 +121,7 @@
                 </h3>
                 <div  class="subtitle" v-show="index==6">
                   <ul>
-                    <li>
+                    <li v-show="user.role3==1 || user.role1==1">
                       <router-link to="/control" class="sub_a">管理页设置</router-link>
                     </li>
                   </ul>
@@ -137,6 +137,7 @@
       <div class="popup" v-show="popup==true">
         <pop :is="allpops"></pop>
       </div>
+      <div>{{user}}</div>
     </div>
 </template>
 
@@ -156,7 +157,14 @@
         infoShow:false,
         index:Number,
         screenWidth: document.body.clientWidth,
+        role_index:Number,
+        u:{}
       }
+    },
+    created(){
+    	let self=this;
+    	let obj={username:'admin',password:'admin'};
+    	self.$store.dispatch("login",obj);
     },
     computed:{
       popup(){
@@ -164,7 +172,10 @@
       },
       allpops(){
         return this.$store.getters.openpops;
-      }
+      },
+      user(){//user.role1代表超级管理员 user.role2代表模块管理员 user.role3代表底层管理员 不同等级能拥有不同的权限
+      	return this.$store.getters.openuser;
+      },
     },
     methods:{
       showInfo(event){
@@ -308,9 +319,11 @@ a:hover
               background #1f2d3d
               li
                 width 240px
+                margin 0
                 .sub_a
-                  padding-left 25px
-                  text-align center
+                  display block
+                  text-align left
+                  text-indent 50px
                   line-height 50px
                   font-size 14px
                   color #bfcbd9

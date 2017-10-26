@@ -13,7 +13,7 @@ class Api_User extends PhalApi_Api {
                 "username" => array(
                     'name'    => 'username',
                     'type'    => 'string',
-                    'min'     => 6,
+                    'min'     => 1,
                     'max'     => 25,
                     'require' => true,
                     'desc'    => '用户的名称'
@@ -21,7 +21,7 @@ class Api_User extends PhalApi_Api {
                 "password" => array(
                     'name'    => 'password',
                     'type'    => 'string',
-                    'min'     => 8,
+                    'min'     => 1,
                     'max'     => 32,
                     'require' => true,
                     'desc'    => '用户的密码'

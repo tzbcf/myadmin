@@ -7,7 +7,7 @@
  */
 class Model_User extends PhalApi_Model_NotORM {
     public function Userlogin($data) {
-        return DI()->notorm->user->select("username")->where("username", $data->username)->where("password", $data->password)->fetch();
+        return DI()->notorm->user->select("role1,role2,role3,username")->where("username", $data->username)->where("password", $data->password)->fetch();
     }
     public function getbanner() {
         return DI()->notorm->banner->order("sort asc")->fetchAll();
