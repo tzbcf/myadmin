@@ -34,7 +34,7 @@
                       <!--<span class="glyphicon glyphicon-ok">-->
                       <!--</span>-->
                     </label>
-                    <span>{{banner.sort}}</span>
+                    <span>{{index+1}}</span>
                   </td>
                   <td>
                     <img :src="banner.img_src" alt="" width="auto" height="50">
@@ -177,16 +177,16 @@
       desc(i){
       	let self=this;
       	let length=self.data_banner.length;
-      	if(self<length-1){
+      	if(i<length-1){
           let m=[];
-          m[0]=parseInt(self.data_banner[i].sort);
-          m[1]=parseInt(self.data_banner[i+1].sort);
+          m[0]=parseInt(self.data_banner[i+1].sort);
+          m[1]=parseInt(self.data_banner[i].sort);
           let data=new URLSearchParams;
           let o=m.toString();
-          data.append("dsc",o);
+          data.append("asc",o);
           self.$store.dispatch("ASC_banner",data).then((data)=>{
             if(data.ret==200){
-              self.$store.commit("ASC_DATA",i)
+              self.$store.commit("DSC_DATA",i)
             }
           })
         }

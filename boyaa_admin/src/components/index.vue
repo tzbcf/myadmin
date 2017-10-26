@@ -122,7 +122,7 @@
                 <div  class="subtitle" v-show="index==6">
                   <ul>
                     <li>
-                      <router-link to="/" class="sub_a">管理页设置</router-link>
+                      <router-link to="/control" class="sub_a">管理页设置</router-link>
                     </li>
                   </ul>
                 </div>

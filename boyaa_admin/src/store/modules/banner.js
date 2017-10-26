@@ -120,6 +120,11 @@ const mutations={
     let o=state.banner_data[i];
     state.banner_data.splice(i,1);
     state.banner_data.splice(i-1,0,o);
+  },
+  DSC_DATA:(state,i)=>{
+    let o=state.banner_data[i];
+    state.banner_data.splice(i,1);
+    state.banner_data.splice(i+1,0,o);
   }
 }
 const getters={
