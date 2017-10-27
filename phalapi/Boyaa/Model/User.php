@@ -37,4 +37,7 @@ class Model_User extends PhalApi_Model_NotORM {
         DI()->notorm->banner->where("sort",$array[1])->Update(array("sort"=>$array[0]));
         return DI()->notorm->banner->where("Id",$id)->Update(array("sort"=>$array[1]));
     }
+    public function userlist() {
+        return DI()->notorm->user->select("username,time,name,phone,role1,role2,role3")->order("role1 asc")->fetchAll();
+    }
 }

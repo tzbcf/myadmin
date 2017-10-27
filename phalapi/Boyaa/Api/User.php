@@ -57,4 +57,9 @@ class Api_User extends PhalApi_Api {
         $Domain_User = new  Domain_User();
         return $Domain_User->Ascdata($_POST);
     }
+    public function userlist(){
+        $Domain_User = new  Domain_User();
+        return $Domain_User->userlist($this);
+
+    }
 }

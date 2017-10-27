@@ -90,4 +90,12 @@ class Domain_User {
         }
         return $data;
     }
+    public function userlist(){
+        $Model_User = new Model_User();
+        $bannerlist=$Model_User->userlist();
+        if (!$bannerlist) {
+            throw new PhalApi_Exception_BadRequest(T("No UserList"), -1);
+        }
+        return $bannerlist;
+    }
 }

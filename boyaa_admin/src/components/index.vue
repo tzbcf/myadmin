@@ -162,7 +162,7 @@
     },
     created(){
     	let self=this;
-    	let obj={username:'abc12345',password:'absc1213114'};
+    	let obj={username:'admin',password:'admin'};
     	self.$store.dispatch("login",obj);
     },
     computed:{
