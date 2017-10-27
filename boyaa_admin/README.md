@@ -38,10 +38,21 @@ npm run build --report
 
 如果后台nginx或apache目录和域名设置不一样，也可修改前端接口地址：修改config文件夹下的dev.env.js和prod.env.js！
 
+<img src="./static/4.bmp" />
+
+<p style="text-align:center">这是登录界面</p>
+
 <img src="./static/1.bmp" />
+
+<p style="text-align:center">这是banner上传的功能</p>
+
 <img src="./static/2.bmp" />
+
+<p style="text-align:center">这是新建账号与权限设置(开发中)</p>
+
 <img src="./static/3.bmp" />
-怎么在git介绍上显示图片呢。。。
+
+<p style="text-align:center">这是权限账号显示的界面</p>
 
 技术介绍：
   目前已经开发完首页(因为开发过程中，懒得登录，所以功能被注释掉了！你会的话可以打开，跑通，#还有个重要的功能就是，通过路径直接进入系统还没开发，用户身份设置了身份令牌，后期调试会进行开发！)、banner图的上传，所有的业务逻辑都在前端处理完，后台对接受和发送的数据进行处理！
