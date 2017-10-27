@@ -91,7 +91,7 @@
     },
     computed:{
     	userlist(){
-    		let self=this;
+    		let self=this;//从上面data的数据就知道下面是对他进行身份权限显示
     		let data=this.$store.getters.openlist;
     		let newdata=data.map((value)=>{
           if(value.role1==1){

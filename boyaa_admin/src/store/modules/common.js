@@ -5,7 +5,11 @@ import {API_ROOT} from '@/api/api'
 import axios from '@/api/http'
 const state={
   users:{},
-  userlist:[]
+  userlist:[],
+  page:{
+    over_l:Number,
+    pages:Number,
+  },
 };
 
 const actions={
@@ -42,7 +46,14 @@ const mutations={
     state.users=user;
   },
   USER_LIST:(state,list)=>{
-    state.userlist=list
+    state.userlist=list;
+    let length=list.length;
+    state.page.over_l=length;
+    state.page.pages=Math.ceil(length/10);
+  },
+  USER_PAGE:(state,i)=>{
+    state.page.over_l=state.userlist.length;
+    state.page.pages=Math.ceil(state.userlist.length/i);
   }
 };
 
@@ -55,6 +66,9 @@ const getters={
   },
   openlist:state=>{
     return state.userlist
+  },
+  openpage:state=>{
+    return state.page
   }
 };
 
