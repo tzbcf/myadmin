@@ -21,11 +21,11 @@
           </div>
           <div class="btns">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="check" @click="checkall">
               <span>全选</span>
             </label>
-            <a href="javascript:;" class="btn btn-danger" @click="del(index)">批量删除</a>
-            <a href="javascript:;" class="btn btn-info">+新增管理员</a>
+            <a href="javascript:;" class="btn btn-danger" @click="delall()">批量删除</a>
+            <a href="javascript:;" class="btn btn-info" @click="addrole">+新增管理员</a>
           </div>
           <div class="tabels">
             <table>
@@ -40,7 +40,7 @@
               <tr v-for="(list,index) in userlist">
                 <td>
                   <label>
-                    <input type="checkbox">
+                    <input type="checkbox" v-model="checksall" :value="index" @click="checks(index)">
                   </label>
                   <span>{{index+1}}</span>
                 </td>
@@ -59,7 +59,7 @@
                 <td>
                   <a href="javascript:;" class="text-success" @click="amend(index)">修改</a>
                   |
-                  <a href="javascript:;" class="text-danger" @click="del(index)">删除</a>
+                  <a href="javascript:;" class="text-danger" @click="delone(index)">删除</a>
                 </td>
               </tr>
             </table>
@@ -81,6 +81,8 @@
 				role1:'超级管理员',
         role2:'版块管理员',
         role3:'模块管理员',
+        checksall:[],
+        check:false,
       }
     },
     components:{
@@ -107,7 +109,78 @@
       },
     },
     methods:{
-    	del(i){}
+      checkall(){
+        let self=this;
+        if(self.check){
+        	self.checksall=[];
+        	self.check=false;
+        }else {
+        	self.check=true;
+        	self.checksall=[];
+        	self.userlist.forEach(function (item,index) {
+            self.checksall.push(parseInt(index));
+          })
+        }
+      },
+      checks(i){
+      	let self=this;
+      	let ind=self.checksall.indexOf(i);
+      	if(ind==-1){
+      		self.checksall.push(i);
+          self.checksall.sort((a,b)=>{
+          	return a-b;
+          })
+        }else {
+      		self.checksall.splice(ind,1)
+        }
+        self.detectionChecke();
+      },
+      detectionChecke(){
+      	let self=this;
+      	self.checksall.length!=self.userlist.length?self.check=false:self.check=true;
+      },
+    	delall(){
+      	let self=this;
+      	if(self.checksall<1){
+      		alert("请选择")
+        }else {
+      		let id=[];
+      		for(let i of self.checksall){
+      			id.push(self.userlist[i].id)
+          }
+          let data=new URLSearchParams();
+          data.append("id",id);
+          self.$store.dispatch("alluserlist",data).then((data)=>{
+          	if(data.ret=200){
+              self.$store.commit("DEL_ALL_list",self.checksall);
+              self.checksall=[];
+            }
+          })
+        }
+
+      },
+      delone(i){
+    		let self=this;
+    		let ind=self.checksall.indexOf(i);
+    		if(ind==-1){
+    			alert("请选择")
+        }else {
+          let data=new URLSearchParams();
+          let id=self.userlist[i].id;
+          data.append("id",id);
+          self.$store.dispatch("alluserlist",data).then((data)=>{
+            if(data.ret==200){//如果成功，前端也数据删除
+              self.$store.commit("DEL_ONE_list",i);
+            }
+          });
+        }
+      },
+      addrole(){
+      	let self=this;
+      	let i='poprole';
+        self.$store.commit("SHOW_BJ");
+        self.$store.commit("SHOW_TC", i);
+      }
     },
     mounted(){
 

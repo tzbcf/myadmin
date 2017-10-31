@@ -138,7 +138,6 @@
           data.append("sort",sort);
           self.$store.dispatch("allremove",data).then((data)=>{
             if(data.ret==200){//如果成功，前端也数据删除
-              self.checkboxModel.splice(indexof,1);
               self.$store.commit("ONE_REMOVE",i);
             }
           });

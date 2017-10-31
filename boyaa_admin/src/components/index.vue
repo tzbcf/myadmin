@@ -143,11 +143,13 @@
 <script>
   import popbanner from './pop/popbanner.vue'
   import popvedo from './pop/popvode.vue'
+  import poprole from './pop/poprole.vue'
 	export default {
 		name: 'index',
     components:{
 			popvedo,
-      popbanner
+      popbanner,
+      poprole,
     },
     data(){
 			return{

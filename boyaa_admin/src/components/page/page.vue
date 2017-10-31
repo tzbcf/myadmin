@@ -21,7 +21,7 @@
             <div>
               <a href="javascript:;" class="btn">{{cout}}</a>
               <ul>
-                <li v-for="i in pages.over_l">
+                <li v-for="i in pages.pages">
                   <a href="javascript:;">{{i}}</a>
                 </li>
               </ul>

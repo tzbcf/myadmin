@@ -62,4 +62,18 @@ class Api_User extends PhalApi_Api {
         return $Domain_User->userlist($this);
 
     }
+    public function Alluserlist(){
+        $Domain_User = new  Domain_User();
+        return $Domain_User->Alluserlist($_POST);
+    }
+    public function Bmodule(){
+        $Domain_User = new  Domain_User();
+        return $Domain_User->Bmodule($this);
+
+    }
+    public function Smodule(){
+        $Domain_User = new  Domain_User();
+        return $Domain_User->Smodule($this);
+
+    }
 }

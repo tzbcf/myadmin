@@ -5,8 +5,8 @@ import {API_ROOT} from '@/api/api'
 import axios from '@/api/http'
 const state={
   banner_data:[],
-  popup:false,
-  pops:'',
+  popup:true,
+  pops:'poprole',
   one_data:[],
 }
 

@@ -39,6 +39,47 @@ const actions={
       })
     })
   },
+  alluserlist({ commit, state },datas){
+    return new Promise((resolve,reject)=>{
+      axios({
+        method:'post',
+        url:API_ROOT,
+        params:{service:'User.userlist'},
+        data:datas
+      }).then((response)=>{
+        resolve(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    })
+  },
+  bmodule({ commit, state }){
+    return new Promise((resolve,reject)=>{
+      axios({
+        method:'post',
+        url:API_ROOT,
+        params:{service:'User.Bmodule'},
+      }).then((response)=>{
+        resolve(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    })
+  },
+  smodule({ commit, state },datas){
+    return new Promise((resolve,reject)=>{
+      axios({
+        method:'post',
+        url:API_ROOT,
+        params:{service:'User.Smodule'},
+        data:datas
+      }).then((response)=>{
+        resolve(response.data)
+      }).catch((error)=>{
+        console.log(error)
+      })
+    })
+  },
 };
 
 const mutations={
@@ -49,12 +90,20 @@ const mutations={
     state.userlist=list;
     let length=list.length;
     state.page.over_l=length;
-    state.page.pages=Math.ceil(length/10);
+    state.page.pages=Math.ceil(length/length);
   },
   USER_PAGE:(state,i)=>{
     state.page.over_l=state.userlist.length;
-    state.page.pages=Math.ceil(state.userlist.length/i);
-  }
+    state.page.pages=Math.ceil(state.userlist.length/length);
+  },
+  DEL_ALL_list:(state,i)=>{
+    for(let j=0;j<i.length;j++){
+      state.userlist.splice(i[j]-j,1)
+    }
+  },
+  DEL_ONE_list:(state,i)=>{
+      state.userlist.splice(i,1)
+  },
 };
 
 const getters={
@@ -69,7 +118,7 @@ const getters={
   },
   openpage:state=>{
     return state.page
-  }
+  },
 };
 
 export default {

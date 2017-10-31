@@ -98,4 +98,28 @@ class Domain_User {
         }
         return $bannerlist;
     }
+    public function Alluserlist(){
+        $Model_User = new Model_User();
+        $data=$Model_User->Alluserlist($_POST);
+        if (!$data) {
+            throw new PhalApi_Exception_BadRequest(T("No UserList"), -1);
+        }
+        return $data;
+    }
+    public function Bmodule(){
+        $Model_User = new Model_User();
+        $bannerlist=$Model_User->Bmodule();
+        if (!$bannerlist) {
+            throw new PhalApi_Exception_BadRequest(T("No UserList"), -1);
+        }
+        return $bannerlist;
+    }
+    public function Smodule(){
+        $Model_User = new Model_User();
+        $bannerlist=$Model_User->Smodule();
+        if (!$bannerlist) {
+            throw new PhalApi_Exception_BadRequest(T("No UserList"), -1);
+        }
+        return $bannerlist;
+    }
 }

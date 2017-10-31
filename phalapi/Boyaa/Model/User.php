@@ -40,4 +40,14 @@ class Model_User extends PhalApi_Model_NotORM {
     public function userlist() {
         return DI()->notorm->user->select("username,time,name,phone,role1,role2,role3")->order("role1 asc")->fetchAll();
     }
+    public function Alluserlist(){
+        $arry=explode(",",$_POST['id']);//把字符串变成数组，然后查询删除
+        return DI()->notorm->banner->where("id",$arry)->fetchAll();//delete()只能用于实际项目中！测试阶段不用;
+    }
+    public function Bmodule() {
+        return DI()->notorm->role1->select("sort,bmodule")->order("sort asc")->fetchAll();
+    }
+    public function Smodule() {
+        return DI()->notorm->role2->select("pid,smodule")->where("sort",$_POST['sort'])->order("pid asc")->fetchAll();
+    }
 }
