@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version: 5.5.53)
-# Date: 2017-10-27 18:27:23
+# Date: 2017-11-01 18:30:50
 # Generator: MySQL-Front 5.3  (Build 4.234)
 
 /*!40101 SET NAMES utf8 */;
@@ -27,6 +27,47 @@ INSERT INTO `tbl_banner` VALUES (1,'http://www.boyaa_api.com/Boyaa/Common/banner
 /*!40000 ALTER TABLE `tbl_banner` ENABLE KEYS */;
 
 #
+# Structure for table "tbl_role1"
+#
+
+DROP TABLE IF EXISTS `tbl_role1`;
+CREATE TABLE `tbl_role1` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` int(11) DEFAULT NULL,
+  `bmodule` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+#
+# Data for table "tbl_role1"
+#
+
+/*!40000 ALTER TABLE `tbl_role1` DISABLE KEYS */;
+INSERT INTO `tbl_role1` VALUES (1,1,'推荐位管理'),(2,2,'投资者关系内容管理'),(3,3,'图文管理'),(4,4,'业务内容管理'),(5,5,'数据统计'),(6,6,'系统设置');
+/*!40000 ALTER TABLE `tbl_role1` ENABLE KEYS */;
+
+#
+# Structure for table "tbl_role2"
+#
+
+DROP TABLE IF EXISTS `tbl_role2`;
+CREATE TABLE `tbl_role2` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort` int(11) DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `smodule` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+#
+# Data for table "tbl_role2"
+#
+
+/*!40000 ALTER TABLE `tbl_role2` DISABLE KEYS */;
+INSERT INTO `tbl_role2` VALUES (1,1,1,'首页'),(2,1,2,'游戏中心'),(3,2,1,'公告与通函'),(4,2,2,'财务报告'),(5,2,3,'演示材料'),(6,3,1,'新闻稿'),(7,3,2,'关于我们'),(8,4,1,'博雅游戏'),(9,4,2,'博雅赛事'),(10,5,1,'点击统计'),(11,5,2,'访问统计'),(12,6,1,'管理员设置');
+/*!40000 ALTER TABLE `tbl_role2` ENABLE KEYS */;
+
+#
 # Structure for table "tbl_user"
 #
 
@@ -50,5 +91,5 @@ CREATE TABLE `tbl_user` (
 #
 
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
-INSERT INTO `tbl_user` VALUES (1,'abcd123','abcd12345','2017-10-16 12:19:35','agdf','陈一',13011110000,2,6,NULL),(2,'adcd12345','adcd123456','2017-10-16 12:19:35','oude','陈二',13100001111,2,1,NULL),(3,'adcd1234566','andd123456','2017-10-16 12:19:35','cqwe','陈三',15000001111,3,1,1),(5,'abc12345','absc1213114','2017-10-16 12:19:35','escd','陈四',13100022222,3,6,1),(6,'admin','admin','2017-10-16 12:19:35','abcd','陈老板',13300000000,1,NULL,NULL);
+INSERT INTO `tbl_user` VALUES (1,'abcd123','abcd12345','2017-10-16 12:19:35','12','陈一',13011110000,2,6,NULL),(2,'adcd12345','adcd123456','2017-10-16 12:19:35','13','陈二',13100001111,2,1,NULL),(3,'adcd1234566','andd123456','2017-10-16 12:19:35','14','陈三',15000001111,3,1,1),(5,'abc12345','absc1213114','2017-10-16 12:19:35','15','陈四',13100022222,3,6,1),(6,'admin','admin','2017-10-16 12:19:35','1','陈老板',13300000000,1,NULL,NULL);
 /*!40000 ALTER TABLE `tbl_user` ENABLE KEYS */;
