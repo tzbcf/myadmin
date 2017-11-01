@@ -56,7 +56,8 @@
       	if(data.ret==200){
           self.b_module=data.data;
         }
-      })
+      });
+
     },
     methods:{
       close(){},
