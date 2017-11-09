@@ -4,5 +4,5 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  API_ROOT:'"http://www.boyaa_api.com/Public/index.php"'
+  API_ROOT:'"http://www.myapi.com:80/Public/index.php"'
 })

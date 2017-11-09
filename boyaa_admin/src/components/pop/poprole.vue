@@ -1,10 +1,10 @@
 <template>
     <div class="poprole col-lg-4 col-lg-offset-4">
-      <h3>
+      <h3 class="title">
         <span>新增管理页</span>
-        <a href="javascript:;" @click="close">X</a>
+        <a href="javascript:;" @click="close" class="close">X</a>
       </h3>
-      <div>
+      <div class="role_form">
         <p>
           <label>
             <span>新增管理员：</span>
@@ -26,9 +26,9 @@
         <p>
           <label>
             <span>角色设置：</span>
-            <select name="" id="b_module">
+            <select name="" id="b_module"  @change="smodule" ref="opt">
               <option value="0">请选择</option>
-              <option v-for="b in b_module" value="b.sort" @change="smodule">{{b.bmodule}}
+              <option v-for="b in b_module" :value="b.sort">{{b.bmodule}}
               </option>
             </select>
             <select name="" id="s_module">
@@ -37,6 +37,9 @@
             </select>
           </label>
         </p>
+      </div>
+      <div class="btns">
+        <a href="javascript:;" class="submit" onclick="console.log(a)">提交</a>
       </div>
     </div>
 </template>
@@ -61,8 +64,8 @@
     },
     methods:{
       close(){},
-      smodule(i){
-      	alert(1);
+      smodule(){
+      	let i=this.$refs.opt.value;
       	let self=this;
         let data=new URLSearchParams;
         data.append("sort",i);
@@ -80,4 +83,33 @@
   .poprole
     background #fff
     margin-top 15%
+    padding 0
+    border-radius 6px
+    .title
+      background #ccc
+      margin 0
+      padding 0 0 0 20px
+      border-radius 6px 6px 0 0
+      line-height 50px
+      .close
+        padding-right 20px
+        line-height 50px
+    .role_form
+      padding 0 20px
+      p
+        label
+          display block
+          width 350px
+          margin 0 auto
+          span
+            display inline-block
+            width 100px
+      p:nth-child(3)
+        span
+          letter-spacing 3px
+      p:nth-child(4)
+        span
+          letter-spacing 3px
+    .btns
+      text-align center
 </style>
